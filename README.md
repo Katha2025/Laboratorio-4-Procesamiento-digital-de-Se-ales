@@ -214,5 +214,46 @@ plt.show()
 ![Screenshot_20251101_205450_Chrome](https://github.com/user-attachments/assets/ffacc1e3-15a4-4980-9187-7a9705a89ab7)
 
 
+Después de se dividió la señal en el número de contracciones realizadas:
+
+``` phyton
+
+#deteccion de umbrales, cuando pasa el umbral inicia una contraccion y cuando vuelve a estar debajo del umbral se termina la contraccion
+umbral = np.mean(senal_filtrada) + 0.5 * np.std(senal_filtrada)
+contraccion2 = senal_filtrada > umbral
+inicios2 = np.where(np.diff(contraccion2.astype(int)) == 1)[0]
+fines2 = np.where(np.diff(contraccion2.astype(int)) == -1)[0]
+
+if len(fines2) < len(inicios2):
+    fines2 = np.append(fines2, len(senal) - 1)
+elif len(fines2) > len(inicios2):
+    fines2 = fines2[:len(inicios2)]
+
+print(f"Contracciones detectadas: {len(inicios2)}")
+
+plt.figure(figsize=(12, 4))
+plt.plot(t2, senal_filtrada / np.max(np.abs(senal_filtrada)), label="Señal EMG", color='darkgoldenrod', alpha=0.7)
+
+for ini, fin in zip(inicios2, fines2):
+    plt.axvspan(t2[ini], t2[fin], color='lightpink', alpha=0.3)
+
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Amplitud (V)')
+plt.title('Detección y segmentación de contracciones musculares capturadas')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+segmentos2 = [senal_filtrada[ini:fin] for ini, fin in zip(inicios2, fines2)]
+print(f"Se extrajeron {len(segmentos2)} segmentos.")
+
+```
+
+
+
+
+
+
 # Parte C
 Finalmente en esta parte de los apartados se aplicó la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real, obteniendo los espectros de amplitud donde compararon los primeros y últimos espectros para identificar la reducción de contenido en altas frecuencias, fenómeno asociado a la fatiga muscular. También se analizó el desplazamiento del pico espectral como indicador del esfuerzo sostenido.
