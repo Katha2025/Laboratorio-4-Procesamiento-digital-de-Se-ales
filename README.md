@@ -197,11 +197,10 @@ plt.show()
 
 **Análisis de la variación de las frecuencias a lo largo de las contracciones simuladas**
 
-Durante el análisis se observó que la **frecuencia media** presentó un incremento en las primeras contracciones, pasando de aproximadamente **4.40 Hz** en la primera a cerca de **4.83 Hz** en las siguientes, donde se mantuvo prácticamente constante. Este comportamiento indica que, al inicio, la señal mostró un aumento en la actividad eléctrica simulada, posiblemente asociado a una mayor intensidad en las contracciones, para luego estabilizarse en un rango de frecuencia uniforme. 
+Durante las cinco contracciones simuladas, se logra obervar que tanto la frecuencia media como la frecuencia mediana se mantienen prácticamente estables al inicio, pero al llegar a la última contracción ambas caen, en las primeras cuatro contracciones, la frecuencia media ronda los 21 Hz y la mediana cerca de los 8.5 Hz, lo que indica una señal de EMG constante y sin signos de cansancio. Sin embargo, en la quinta contracción se observa una disminución donde la media baja a 15.35 Hz y la mediana a 4.38 Hz, lo que refleja la aparición de la fatiga. Esta caída en las frecuencias representa cómo, al fatigarse el músculo, la señal pierde potencia y las fibras ya no se activan con la misma eficiencia, simulando el comportamiento real de una contracción muscular prolongada.
 
 
 # Parte B
-Para poder realizar la captura de la señal se utilizaron dos electrodos de activos  sobre el músculo y un electrodo de tierra que se conectó al codo para registrar contracciones reales hasta la fatiga que fueron convertidas de los sślogo a lo digital  por un microcontrolador DAQ para finalmente ser obtenidas en el computador. La señal adquirida se filtró mediante un pasa banda , eliminando artefactos y ruido. Luego se segmentaron las contracciones, se calcularon las frecuencias media y mediana, y se analizaron sus variaciones a lo largo del tiempo, observando la disminución de la frecuencia con el aumento de la fatiga muscular.
 
 **Código para la obtención de la señal**
 
