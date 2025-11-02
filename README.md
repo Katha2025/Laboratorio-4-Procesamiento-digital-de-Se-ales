@@ -33,13 +33,14 @@ plt.show()
 
 ```
 
-**Imagen de la señal generada**
+**Imagen de la señal adquirida**
 
 
 ![Screenshot_20251101_193611_Chrome](https://github.com/user-attachments/assets/a0021c15-a75b-45f8-b910-36b59f152fd2)
 
 
-Luego de la segmentación de la señal obtenida en las cinco contracciones simuladas se pasó a calcular la frecuencia media y mediana las cuales  se presentaron en una tabla y se representó la evolución de las frecuencias gráficamente.
+**Segmentación de la señal en 5 contracciones**
+
 
 **código del cáculo de la media y mediana**
 
