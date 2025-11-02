@@ -253,8 +253,51 @@ print(f"Se extrajeron {len(segmentos2)} segmentos.")
 ![Screenshot_20251101_212030_Chrome](https://github.com/user-attachments/assets/7517d0a1-b3ea-4ee7-878a-e8961312deee)
 
 
+El paso a seguir fue calcular para cada contracción la media y la mediana de la frecuencia.
 
+``` phyton
 
+import numpy as np
+
+def analizar_segmento2(segmento, fs):
+    N = len(segmento)
+    if N < 2:
+        return 0, 0
+
+    ventana = np.hanning(N)
+    fft_vals = np.fft.fft(segmento * ventana)
+    freqs = np.fft.fftfreq(N, 1/fs)
+    freqs = freqs[:N//2]
+    potencia = np.abs(fft_vals[:N//2])**2
+
+    potencia[0] = 0
+
+    if np.sum(potencia) < 1e-12:
+        return 0, 0
+
+    f_mean2 = np.sum(freqs * potencia) / np.sum(potencia)
+
+    potencia_acum = np.cumsum(potencia)
+    mitad_potencia = potencia_acum[-1] / 2
+    idx_median = np.where(potencia_acum >= mitad_potencia)[0]
+    f_median2 = freqs[idx_median[0]] if len(idx_median) > 0 else 0
+
+    return f_mean2, f_median2
+
+```
+
+``` phyton
+
+resultados2 = []
+for i, seg in enumerate(segmentos2):
+    f_mean2, f_median2 = analizar_segmento2(seg, fs)
+    resultados2.append((i+1, f_mean2, f_median2))
+
+print("Contracción | Frecuencia media (Hz) | Frecuencia mediana (Hz)")
+for r in resultados2:
+    print(f"{r[0]:11.2f} | {r[1]:21.2f} | {r[2]:21.2f}")
+
+``` 
 
 # Parte C
 Finalmente en esta parte de los apartados se aplicó la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real, obteniendo los espectros de amplitud donde compararon los primeros y últimos espectros para identificar la reducción de contenido en altas frecuencias, fenómeno asociado a la fatiga muscular. También se analizó el desplazamiento del pico espectral como indicador del esfuerzo sostenido.
