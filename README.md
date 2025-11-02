@@ -6,7 +6,8 @@ En esta parte se configuró el generador de señales biológicas en modo EMG, si
 
 
 **Código utilizado para el pocesamiento de la señal**
-''' python
+
+```python
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,7 +30,8 @@ plt.xlabel("Tiempo (s)")
 plt.ylabel("Amplitud (V)")
 plt.grid(True)
 plt.show()
-'''
+
+```
 
 
 # Parte B
