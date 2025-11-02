@@ -151,7 +151,67 @@ plt.show()
 ![Screenshot_20251101_205006_Chrome](https://github.com/user-attachments/assets/34055b05-7b51-4b0a-94b7-033b8eb1b9b4)
 
 
+Ahora bien, se aplicó un filtro pasa banda (20-450 Hz) con la finalidad de eliminar ruido y artefactos.
 
+**Código con el filtro pasa banda**
+
+``` phyton
+
+from scipy.signal import butter, filtfilt
+import numpy as np
+import matplotlib.pyplot as plt
+
+#filtro
+def butter_bandpass(lowcut, highcut, fs, order=4):
+    nyq = 0.5 * fs
+    low = lowcut / nyq
+    high = highcut / nyq
+    b, a = butter(order, [low, high], btype='band')
+    return b, a
+
+def aplicar_filtro(data, lowcut, highcut, fs, order=4):
+    b, a = butter_bandpass(lowcut, highcut, fs, order=order)
+    y = filtfilt(b, a, data)
+    return y
+
+t2 = emg[:, 0]
+senal2 = emg[:, 1]
+
+senal_filtrada = aplicar_filtro(senal2, 20, 450, fs, order=4)
+
+inicioo = t2 <= 10
+ti= t2[inicioo]
+si2= senal_filtrada[inicioo]
+
+tf = t2.max()
+finall = t2 >= (tf -10)
+tf = t2[finall]
+sf2 =senal_filtrada[finall]
+plt.figure(figsize=(12, 6))
+
+plt.subplot(2,1,1)
+plt.plot(ti, si2, color='darkorchid')
+plt.title("Señal filtrada, actividad normal")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Amplitud (V)")
+plt.grid(True)
+
+plt.subplot(2,1,2)
+plt.plot(tf, sf2, color='darkorchid')
+plt.title("Señal filtrada, fatiga")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Amplitud (V)")
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+
+
+``` 
+![Screenshot_20251101_205442_Chrome](https://github.com/user-attachments/assets/5f55a01e-7e31-47e6-b988-681f8005364f)
+
+
+![Screenshot_20251101_205450_Chrome](https://github.com/user-attachments/assets/ffacc1e3-15a4-4980-9187-7a9705a89ab7)
 
 
 # Parte C
