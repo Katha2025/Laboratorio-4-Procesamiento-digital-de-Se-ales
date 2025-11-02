@@ -92,6 +92,9 @@ plt.show()
 
 ![Screenshot_20251101_202237_Chrome](https://github.com/user-attachments/assets/f874a9e3-be14-44dd-887a-e55ff27b5c09)
 
+**Análisis de la variación de las frecuencias a lo largo de las contracciones simuladas**
+
+
 
 # Parte B
 Para poder realizar la captura de la señal se utilizaron dos electrodos de activos  sobre el músculo y un electrodo de tierra que se conectó al codo para registrar contracciones reales hasta la fatiga. La señal adquirida se filtró mediante un pasa banda de , eliminando artefactos y ruido. Luego se segmentaron las contracciones, se calcularon las frecuencias media y mediana, y se analizaron sus variaciones a lo largo del tiempo, observando la disminución de la frecuencia con el aumento de la fatiga muscular.
