@@ -41,6 +41,56 @@ plt.show()
 
 **Segmentación de la señal en 5 contracciones**
 
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import butter, filtfilt
+
+fs = 2000  # Hz
+
+senal_proc = np.abs(senal - np.mean(senal))
+
+#filtro pasabajos
+b, a = butter(2, 2 / (fs / 2), btype='low')
+filtrada = filtfilt(b, a, senal_proc)
+
+#normalizar
+filtrada_norm = filtrada / np.max(filtrada)
+
+#deteccion de umbrales, cuando pasa el umbral inicia una contraccion y cuando vuelve a estar debajo del umbral se termina la contraccion
+umbral = np.mean(filtrada_norm) + 0.5 * np.std(filtrada_norm)
+en_contraccion = filtrada_norm > umbral
+inicios = np.where(np.diff(en_contraccion.astype(int)) == 1)[0]
+fines = np.where(np.diff(en_contraccion.astype(int)) == -1)[0]
+
+if len(fines) < len(inicios):
+    fines = np.append(fines, len(senal) - 1)
+elif len(fines) > len(inicios):
+    fines = fines[:len(inicios)]
+
+print(f"Contracciones detectadas: {len(inicios)}")
+
+plt.figure(figsize=(12, 4))
+plt.plot(t, senal / np.max(np.abs(senal)), label="Señal EMG", color='hotpink', alpha=0.7)
+plt.plot(t, filtrada_norm, label="Señal filtrada", color='palevioletred', linewidth=2)
+
+for ini, fin in zip(inicios, fines):
+    plt.axvspan(t[ini], t[fin], color='skyblue', alpha=0.3)
+
+plt.xlabel('Tiempo (s)')
+plt.ylabel('Amplitud (V)')
+plt.title('Detección y segmentación de contracciones musculares simuladas')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+segmentos = [senal[ini:fin] for ini, fin in zip(inicios, fines)]
+print(f"Se extrajeron {len(segmentos)} segmentos.")
+```
+
+<img width="1205" height="437" alt="image" src="https://github.com/user-attachments/assets/4cc19c3c-bc6b-4665-896d-753ffca77649" />
+
 
 **código del cáculo de la media y mediana**
 
