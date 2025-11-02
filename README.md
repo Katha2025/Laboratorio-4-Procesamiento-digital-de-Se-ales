@@ -91,8 +91,56 @@ print(f"Se extrajeron {len(segmentos)} segmentos.")
 
 <img width="1205" height="437" alt="image" src="https://github.com/user-attachments/assets/4cc19c3c-bc6b-4665-896d-753ffca77649" />
 
+Ahora se calculó la media y la mediana de las frecuencias y se tabularon por cada contracción.
 
 **código del cáculo de la media y mediana**
+
+``` phyton
+import numpy as np
+
+def analizar_segmento(segmento, fs):
+    N = len(segmento)
+    if N < 2:
+        return 0, 0
+
+    ventana = np.hanning(N)
+    fft_vals = np.fft.fft(segmento * ventana)
+    freqs = np.fft.fftfreq(N, 1/fs)
+    freqs = freqs[:N//2]
+    potencia = np.abs(fft_vals[:N//2])**2
+
+    potencia[0] = 0
+
+    if np.sum(potencia) < 1e-12:
+        return 0, 0
+
+    f_mean = np.sum(freqs * potencia) / np.sum(potencia)
+
+    potencia_acum = np.cumsum(potencia)
+    mitad_potencia = potencia_acum[-1] / 2
+    idx_median = np.where(potencia_acum >= mitad_potencia)[0]
+    f_median = freqs[idx_median[0]] if len(idx_median) > 0 else 0
+
+    return f_mean, f_median
+```
+Se obtuvieron como resultado las siguientes gráficas:
+```phyton
+for i, (ini, fin) in enumerate(zip(inicios, fines), start=1):
+    t_seg = t[ini:fin]
+    senal_seg = senal[ini:fin]
+
+    plt.figure(figsize=(6, 2))
+    plt.plot(t_seg, senal_seg, color='mediumvioletred')
+    plt.title(f"Contracción {i}")
+    plt.xlabel("Tiempo (s)")
+    plt.ylabel("Amplitud (V)")
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.tight_layout()
+    plt.show()
+```
+<img width="613" height="763" alt="image" src="https://github.com/user-attachments/assets/d56db413-a4aa-4bd4-9727-b35ad457ee00" />
+
+Y por último la tabulación de la media y mediana.
 
 ``` phyton
 
@@ -105,10 +153,12 @@ print("Contracción | Frecuencia media (Hz) | Frecuencia mediana (Hz)")
 for r in resultados:
     print(f"{r[0]:11.2f} | {r[1]:21.2f} | {r[2]:21.2f}")
 
+
 ```
 **Tablas de los resultados de la media y la mediana  de cada contracción**
 
-![Screenshot_20251101_201516_Chrome](https://github.com/user-attachments/assets/a899e827-3706-4ea4-a516-862f1de43217)
+<img width="530" height="128" alt="image" src="https://github.com/user-attachments/assets/746e734a-ba06-42fb-afce-59c3d07b86a7" />
+
 
 **Gráficas de la evolución de las frecuencias**
 
@@ -137,11 +187,12 @@ plt.grid(True)
 
 plt.tight_layout()
 plt.show()
-```
 
-![Screenshot_20251101_202230_Chrome](https://github.com/user-attachments/assets/247abf22-d8fc-4ceb-8ba2-cddd5da6903e)
+<img width="701" height="400" alt="image" src="https://github.com/user-attachments/assets/5664bf75-0de4-410d-8c15-b5e8419044ee" />
 
-![Screenshot_20251101_202237_Chrome](https://github.com/user-attachments/assets/f874a9e3-be14-44dd-887a-e55ff27b5c09)
+
+<img width="798" height="389" alt="image" src="https://github.com/user-attachments/assets/d14b6b65-effe-4c17-86e9-d85ad07c079a" />
+
 
 **Análisis de la variación de las frecuencias a lo largo de las contracciones simuladas**
 
