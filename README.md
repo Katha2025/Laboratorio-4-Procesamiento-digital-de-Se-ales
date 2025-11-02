@@ -187,6 +187,7 @@ plt.grid(True)
 
 plt.tight_layout()
 plt.show()
+```
 
 <img width="701" height="400" alt="image" src="https://github.com/user-attachments/assets/5664bf75-0de4-410d-8c15-b5e8419044ee" />
 
