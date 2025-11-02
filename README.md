@@ -5,7 +5,7 @@ En este laboratorio se trabajó con señales electromiográficas (EMG), las cual
 En esta parte se configuró el generador de señales biológicas en modo EMG, simulando cinco contracciones musculares. La señal fue adquirida, segmentada y analizada mediante el cálculo de la frecuencia media y mediana para cada contracción. Posteriormente, se graficó la evolución de las frecuencias para identificar patrones que representaran la aparición de fatiga simulada.
 
 
-**Código para la obtención de la señal generada**
+**Código para la captura de la señal generada**
 
 ```python
 
