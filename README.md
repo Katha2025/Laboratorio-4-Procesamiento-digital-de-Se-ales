@@ -34,6 +34,8 @@ plt.show()
 ```
 
 **Imagen de la señal generada después de ser procesada**
+
+
 ![Screenshot_20251101_193611_Chrome](https://github.com/user-attachments/assets/a0021c15-a75b-45f8-b910-36b59f152fd2)
 
 
