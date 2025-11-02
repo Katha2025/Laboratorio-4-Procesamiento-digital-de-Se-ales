@@ -250,6 +250,7 @@ print(f"Se extrajeron {len(segmentos2)} segmentos.")
 
 ```
 
+![Screenshot_20251101_212030_Chrome](https://github.com/user-attachments/assets/7517d0a1-b3ea-4ee7-878a-e8961312deee)
 
 
 
