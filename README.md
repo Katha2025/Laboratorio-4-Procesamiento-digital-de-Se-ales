@@ -93,7 +93,7 @@ print(f"Se extrajeron {len(segmentos)} segmentos.")
 
 Ahora se calculó la media y la mediana de las frecuencias y se tabularon por cada contracción.
 
-**código del cáculo de la media y mediana**
+**Código del cáculo de la media y mediana**
 
 ``` phyton
 import numpy as np
