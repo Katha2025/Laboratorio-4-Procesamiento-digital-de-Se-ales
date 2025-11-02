@@ -39,7 +39,9 @@ plt.show()
 ![Screenshot_20251101_193611_Chrome](https://github.com/user-attachments/assets/a0021c15-a75b-45f8-b910-36b59f152fd2)
 
 
-luego de la segmentación de la señal obtenida en las cinco contracciones simuladas se pasó a calcular la frecuencia media y mediana las cuales  se presentaron en una tabla y se representó la evolución de las frecuencias gráficamente.
+Luego de la segmentación de la señal obtenida en las cinco contracciones simuladas se pasó a calcular la frecuencia media y mediana las cuales  se presentaron en una tabla y se representó la evolución de las frecuencias gráficamente.
+
+**código del cáculo de la media y mediana**
 
 ``` phyton
 
@@ -57,6 +59,38 @@ for r in resultados:
 
 ![Screenshot_20251101_201516_Chrome](https://github.com/user-attachments/assets/a899e827-3706-4ea4-a516-862f1de43217)
 
+**Gráficas de la evolución de las frecuencias**
+
+
+``` phyton
+resultados = np.array(resultados)
+contracciones = resultados[:, 0]
+f_media = resultados[:, 1]
+f_mediana = resultados[:, 2]
+
+plt.figure(figsize=(8, 4))
+plt.plot(contracciones, f_media, marker='*', color='indigo')
+plt.title('Frecuencia media por contracción')
+plt.xlabel('Número de contracción')
+plt.ylabel('Frecuencia (Hz)')
+plt.grid(True)
+plt.show()
+
+plt.figure(figsize=(8 ,4))
+plt.plot(contracciones, f_mediana, marker='*', color='deeppink')
+plt.title('Frecuencia mediana por contracción')
+plt.xlabel('Número de contracción')
+plt.ylabel('Frecuancia (Hz)')
+plt.grid(True)
+
+
+plt.tight_layout()
+plt.show()
+```
+
+![Screenshot_20251101_202230_Chrome](https://github.com/user-attachments/assets/247abf22-d8fc-4ceb-8ba2-cddd5da6903e)
+
+![Screenshot_20251101_202237_Chrome](https://github.com/user-attachments/assets/f874a9e3-be14-44dd-887a-e55ff27b5c09)
 
 
 # Parte B
