@@ -98,6 +98,61 @@ Durante el análisis se observó que la **frecuencia media** presentó un increm
 
 
 # Parte B
-Para poder realizar la captura de la señal se utilizaron dos electrodos de activos  sobre el músculo y un electrodo de tierra que se conectó al codo para registrar contracciones reales hasta la fatiga. La señal adquirida se filtró mediante un pasa banda de , eliminando artefactos y ruido. Luego se segmentaron las contracciones, se calcularon las frecuencias media y mediana, y se analizaron sus variaciones a lo largo del tiempo, observando la disminución de la frecuencia con el aumento de la fatiga muscular.
+Para poder realizar la captura de la señal se utilizaron dos electrodos de activos  sobre el músculo y un electrodo de tierra que se conectó al codo para registrar contracciones reales hasta la fatiga que fueron convertidas de los sślogo a lo digital  por un microcontrolador DAQ para finalmente ser obtenidas en el computador. La señal adquirida se filtró mediante un pasa banda , eliminando artefactos y ruido. Luego se segmentaron las contracciones, se calcularon las frecuencias media y mediana, y se analizaron sus variaciones a lo largo del tiempo, observando la disminución de la frecuencia con el aumento de la fatiga muscular.
+
+**Código para la obtención de la señal**
+
+``` phyton
+import numpy as np
+import matplotlib.pyplot as plt
+
+emg = np.loadtxt('senal_EMG__5_mejor_mejor_mejor220251029_144237.txt', comments='#')
+fs = 10000
+
+t2= emg[:, 0]
+senal2 = emg[:, 1]
+
+inicioo = t2 <= 10
+ti= t2[inicioo]
+si= senal2[inicioo]
+
+tf = t2.max()
+finall = t2 >= (tf -10)
+tf = t2[finall]
+sf =senal2[finall]
+
+plt.figure(figsize=(12, 6))
+
+plt.subplot(2,1,1)
+plt.plot(ti, si, color='mediumaquamarine')
+plt.title("Señal original, actividad normal")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Amplitud (V)")
+plt.grid(True)
+
+plt.subplot(2,1,2)
+plt.plot(tf, sf, color='mediumaquamarine')
+plt.title("Señal original, fatiga")
+plt.xlabel("Tiempo (s)")
+plt.ylabel("Amplitud (V)")
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+```
+
+**Gráfica de la actividad del músculo sin fatiga**
+
+![Screenshot_20251101_205002_Chrome](https://github.com/user-attachments/assets/d8cf198c-6ceb-4015-9070-39f2e56f958d)
+
+
+**Gráfica de la actividad del músculo con fatiga**
+
+![Screenshot_20251101_205006_Chrome](https://github.com/user-attachments/assets/34055b05-7b51-4b0a-94b7-033b8eb1b9b4)
+
+
+
+
+
 # Parte C
 Finalmente en esta parte de los apartados se aplicó la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real, obteniendo los espectros de amplitud donde compararon los primeros y últimos espectros para identificar la reducción de contenido en altas frecuencias, fenómeno asociado a la fatiga muscular. También se analizó el desplazamiento del pico espectral como indicador del esfuerzo sostenido.
