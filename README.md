@@ -1653,7 +1653,7 @@ A partir de las gráficas de frecuencia media y frecuencia mediana se observa un
  **Análisis espectral mediant**
  
 Transformada Rápida de Fourier 
-
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -1675,7 +1675,9 @@ for i, seg in enumerate(segmentos2):
     potencia = np.abs(fft_vals)**2
     
  **Espectro de amplitud**
- 
+
+
+ ```python
  magnitud = np.abs(fft_vals) / N
 plt.figure(figsize=(8,4))
 plt.semilogy(freqs, magnitud, color='darkslategray')
@@ -1691,6 +1693,7 @@ plt.show()
 
 **Comparacion de espectros**
 **Calcular y discutir el desplazamiento del pico espectral**
+```python
 segmentos_filtrados = [senal_filtrada[ini:fin] for ini, fin in zip(inicios2, fines2)]
 
 picos = []
@@ -1725,6 +1728,7 @@ desplazamiento = pico_ultimas - pico_primeras
 print(f"Pico promedio primeras contracciones: {pico_primeras:.2f} Hz")
 print(f"Pico promedio últimas contracciones: {pico_ultimas:.2f} Hz")
 print(f"Desplazamiento del pico: {desplazamiento:.2f} Hz")
+
 
 Pico promedio primeras contracciones: 106.32 Hz
 Pico promedio últimas contracciones: 242.22 Hz
