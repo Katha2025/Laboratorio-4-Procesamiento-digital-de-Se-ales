@@ -1673,7 +1673,7 @@ for i, seg in enumerate(segmentos2):
     fft_vals = fft_vals[:N//2]
     freqs = freqs[:N//2]
     potencia = np.abs(fft_vals)**2
-    
+   ``` 
  **Espectro de amplitud**
 
 
@@ -1687,7 +1687,7 @@ plt.ylabel("Magnitud")
 plt.grid(True, which='both', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
-
+```
 **Grafica de amplitud**
 <img width="685" height="323" alt="image" src="https://github.com/user-attachments/assets/50949b8e-e79b-49da-92c4-931ff2caab01" />
 
@@ -1728,7 +1728,7 @@ desplazamiento = pico_ultimas - pico_primeras
 print(f"Pico promedio primeras contracciones: {pico_primeras:.2f} Hz")
 print(f"Pico promedio últimas contracciones: {pico_ultimas:.2f} Hz")
 print(f"Desplazamiento del pico: {desplazamiento:.2f} Hz")
-
+```
 
 Pico promedio primeras contracciones: 106.32 Hz
 Pico promedio últimas contracciones: 242.22 Hz
