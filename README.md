@@ -1692,7 +1692,65 @@ plt.show()
 <img width="685" height="323" alt="image" src="https://github.com/user-attachments/assets/50949b8e-e79b-49da-92c4-931ff2caab01" />
 
 **Comparacion de espectros**
+```python
+import numpy as np
+import matplotlib.pyplot as plt
 
+fs = 10000  # frecuencia de muestreo
+
+# Ajusta aquí si tu variable real es 'segmentos_filtrados'
+seg_inicio = segmentos2[0]
+seg_final = segmentos2[-1]
+
+def calcular_fft(seg, fs):
+    N = len(seg)
+    # Eliminar componente DC antes de la ventana
+    seg = seg - np.mean(seg)
+    ventana = np.hanning(N)
+    seg_ventana = seg * ventana
+    fft_vals = np.fft.fft(seg_ventana)
+    freqs = np.fft.fftfreq(N, 1/fs)
+    fft_vals = fft_vals[:N//2]
+    freqs = freqs[:N//2]
+    potencia = np.abs(fft_vals)**2
+    return freqs, potencia
+
+freqs_inicio, pot_inicio = calcular_fft(seg_inicio, fs)
+freqs_final, pot_final = calcular_fft(seg_final, fs)
+
+plt.figure(figsize=(10,5))
+plt.semilogy(freqs_inicio, pot_inicio, label='Primeras contracciones')
+plt.semilogy(freqs_final, pot_final, label='Últimas contracciones', linestyle='dashed')
+plt.xlim([20, 500])  # Rango relevante para EMG
+plt.xlabel('Frecuencia [Hz]')
+plt.ylabel('Potencia (escala log)')
+plt.title('Comparación de espectros EMG (inicio vs. final)')
+plt.grid(True, which='both', linestyle='--', alpha=0.7)
+plt.legend()
+plt.tight_layout()
+```
+<img width="896" height="396" alt="image" src="https://github.com/user-attachments/assets/a412d330-7050-4c51-a8ff-81f7b324232b" />
+
+**Identificar la reducción del contenido de alta frecuencia asociada con la fatiga 
+muscular**
+```python
+f_high = 100  # Límite de alta frecuencia en Hz
+
+# Para el espectro de inicio
+indices_high_inicio = np.where(freqs_inicio > f_high)
+contenido_high_inicio = np.sum(pot_inicio[indices_high_inicio])
+
+# Para el espectro de final
+indices_high_final = np.where(freqs_final > f_high)
+contenido_high_final = np.sum(pot_final[indices_high_final])
+
+print("Contenido alta frecuencia (inicio):", contenido_high_inicio)
+print("Contenido alta frecuencia (final):", contenido_high_final)
+print("Reducción relativa:", 100 * (1 - contenido_high_final / contenido_high_inicio), "%")
+```
+Contenido alta frecuencia (inicio): 33.368706225188234
+Contenido alta frecuencia (final): 0.018871728736843073
+Reducción relativa: 99.94344482938749 %
 **Calcular y discutir el desplazamiento del pico espectral**
 
 ```python
