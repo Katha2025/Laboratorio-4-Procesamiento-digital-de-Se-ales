@@ -1795,5 +1795,7 @@ Pico promedio primeras contracciones: 106.32 Hz
 Pico promedio últimas contracciones: 242.22 Hz
 Desplazamiento del pico: 135.90 Hz
  
- 
+ <img width="310" height="830" alt="image" src="https://github.com/user-attachments/assets/be6e0799-d8a5-4e11-a494-ecfe4ead2fe9" />
+ <br>
+
 Finalmente en esta parte de los apartados se aplicó la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real, obteniendo los espectros de amplitud donde compararon los primeros y últimos espectros para identificar la reducción de contenido en altas frecuencias, fenómeno asociado a la fatiga muscular. También se analizó el desplazamiento del pico espectral como indicador del esfuerzo sostenido.
