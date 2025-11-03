@@ -1649,4 +1649,42 @@ A partir de las gráficas de frecuencia media y frecuencia mediana se observa un
 
 
 # Parte C
+
+ **Análisis espectral mediant**
+Transformada Rápida de Fourier 
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+fs = 10000
+
+for i, seg in enumerate(segmentos2):
+    N = len(seg)
+    if N < 2:
+        continue
+
+    ventana = np.hanning(N)
+    seg_ventana = seg * ventana
+
+    fft_vals = np.fft.fft(seg_ventana)
+    freqs = np.fft.fftfreq(N, 1/fs)
+
+    fft_vals = fft_vals[:N//2]
+    freqs = freqs[:N//2]
+    potencia = np.abs(fft_vals)**2
+
+    
+ **Espectro de amplituds**
+    magnitud = np.abs(fft_vals) / N
+plt.figure(figsize=(8,4))
+plt.semilogy(freqs, magnitud, color='darkslategray')
+plt.title(f"Espectro de amplitud - Contracción {i+1}")
+plt.xlabel("Frecuencia (Hz)")
+plt.ylabel("Magnitud")
+plt.grid(True, which='both', linestyle='--', alpha=0.7)
+plt.tight_layout()
+plt.show()
+ **Graficar el espectro de amplitud **
+ 
+ 
 Finalmente en esta parte de los apartados se aplicó la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real, obteniendo los espectros de amplitud donde compararon los primeros y últimos espectros para identificar la reducción de contenido en altas frecuencias, fenómeno asociado a la fatiga muscular. También se analizó el desplazamiento del pico espectral como indicador del esfuerzo sostenido.
