@@ -1651,6 +1651,7 @@ A partir de las gráficas de frecuencia media y frecuencia mediana se observa un
 # Parte C
 
  **Análisis espectral mediant**
+ 
 Transformada Rápida de Fourier 
 
 import numpy as np
@@ -1672,10 +1673,10 @@ for i, seg in enumerate(segmentos2):
     fft_vals = fft_vals[:N//2]
     freqs = freqs[:N//2]
     potencia = np.abs(fft_vals)**2
-
     
- **Espectro de amplituds**
-    magnitud = np.abs(fft_vals) / N
+ **Espectro de amplitud**
+ 
+ magnitud = np.abs(fft_vals) / N
 plt.figure(figsize=(8,4))
 plt.semilogy(freqs, magnitud, color='darkslategray')
 plt.title(f"Espectro de amplitud - Contracción {i+1}")
@@ -1684,7 +1685,50 @@ plt.ylabel("Magnitud")
 plt.grid(True, which='both', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
- **Graficar el espectro de amplitud **
+
+**Grafica de amplitud**
+<img width="685" height="323" alt="image" src="https://github.com/user-attachments/assets/50949b8e-e79b-49da-92c4-931ff2caab01" />
+
+**Comparacion de espectros**
+**Calcular y discutir el desplazamiento del pico espectral**
+segmentos_filtrados = [senal_filtrada[ini:fin] for ini, fin in zip(inicios2, fines2)]
+
+picos = []
+
+for seg in segmentos_filtrados:
+    N = len(seg)
+    if N < 2:
+        picos.append(np.nan)
+        continue
+
+    seg_ventana = seg * np.hanning(N)
+    fft_vals = np.fft.fft(seg_ventana)
+    freqs = np.fft.fftfreq(N, 1/fs)
+
+    fft_vals = fft_vals[:N//2]
+    freqs = freqs[:N//2]
+    magnitud = np.abs(fft_vals) / N
+
+    magnitud[0] = 0
+
+    f_pico = freqs[np.argmax(magnitud)]
+    picos.append(f_pico)
+
+picos = np.array(picos)
+n = 3
+
+pico_primeras = np.nanmean(picos[:n])
+pico_ultimas = np.nanmean(picos[-n:])
+
+desplazamiento = pico_ultimas - pico_primeras
+
+print(f"Pico promedio primeras contracciones: {pico_primeras:.2f} Hz")
+print(f"Pico promedio últimas contracciones: {pico_ultimas:.2f} Hz")
+print(f"Desplazamiento del pico: {desplazamiento:.2f} Hz")
+
+Pico promedio primeras contracciones: 106.32 Hz
+Pico promedio últimas contracciones: 242.22 Hz
+Desplazamiento del pico: 135.90 Hz
  
  
 Finalmente en esta parte de los apartados se aplicó la Transformada Rápida de Fourier (FFT) a cada contracción de la señal EMG real, obteniendo los espectros de amplitud donde compararon los primeros y últimos espectros para identificar la reducción de contenido en altas frecuencias, fenómeno asociado a la fatiga muscular. También se analizó el desplazamiento del pico espectral como indicador del esfuerzo sostenido.
