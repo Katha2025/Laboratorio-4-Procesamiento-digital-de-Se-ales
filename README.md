@@ -1751,6 +1751,7 @@ print("Reducción relativa:", 100 * (1 - contenido_high_final / contenido_high_i
 Contenido alta frecuencia (inicio): 33.368706225188234
 Contenido alta frecuencia (final): 0.018871728736843073
 Reducción relativa: 99.94344482938749 %
+<br>
 **Calcular y discutir el desplazamiento del pico espectral**
 
 ```python
