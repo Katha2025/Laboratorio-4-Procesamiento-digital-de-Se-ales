@@ -199,6 +199,7 @@ plt.show()
 
 Durante las cinco contracciones simuladas, se logra obervar que tanto la frecuencia media como la frecuencia mediana se mantienen prácticamente estables al inicio, pero al llegar a la última contracción ambas caen, en las primeras cuatro contracciones, la frecuencia media ronda los 21 Hz y la mediana cerca de los 8.5 Hz, lo que indica una señal de EMG constante y sin signos de cansancio. Sin embargo, en la quinta contracción se observa una disminución donde la media baja a 15.35 Hz y la mediana a 4.38 Hz, lo que refleja la aparición de la fatiga. Esta caída en las frecuencias representa cómo, al fatigarse el músculo, la señal pierde potencia y las fibras ya no se activan con la misma eficiencia, simulando el comportamiento real de una contracción muscular prolongada.
 
+<img width="446" height="897" alt="image" src="https://github.com/user-attachments/assets/8b5a19d6-a3be-40f5-a56b-e4a18de1c9eb" />
 
 # Parte B
 
