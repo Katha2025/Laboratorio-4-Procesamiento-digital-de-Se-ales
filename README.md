@@ -1688,11 +1688,13 @@ plt.grid(True, which='both', linestyle='--', alpha=0.7)
 plt.tight_layout()
 plt.show()
 ```
-**Grafica de amplitud**
+
 <img width="685" height="323" alt="image" src="https://github.com/user-attachments/assets/50949b8e-e79b-49da-92c4-931ff2caab01" />
 
 **Comparacion de espectros**
+
 **Calcular y discutir el desplazamiento del pico espectral**
+
 ```python
 segmentos_filtrados = [senal_filtrada[ini:fin] for ini, fin in zip(inicios2, fines2)]
 
